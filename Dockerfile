@@ -1,21 +1,19 @@
-FROM phusion/passenger-full:0.9.11
+FROM nginx:1.7
 
-ENV HOME /root
+EXPOSE 8088
 
-CMD ["/sbin/my_init"]
+RUN apt-get update \
+  && apt-get install -y curl python \
+  && apt-get clean \
+  && mkdir -p /reposado/code /reposado/html /reposado/metadata \
+  && curl -ksSL https://github.com/wdas/reposado/tarball/master | tar zx \
+  && cp -rf wdas-reposado-*/code/* /reposado/code/ \
+  && rm -f master /etc/nginx/sites-enabled/default /etc/service/nginx/down \
+  && rm -rf wdas-reposado-* /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-RUN apt-get update && apt-get install -y \
-  python-pip \
-  python-dev \
-  curl
+COPY nginx.conf /etc/nginx/
+COPY preferences.plist /reposado/code/
+COPY reposado.conf /etc/nginx/sites-enabled/
 
-RUN git clone https://github.com/wdas/reposado.git /reposado
-ADD preferences.plist /reposado/code/
-ADD reposado.conf /etc/nginx/sites-enabled/reposado.conf
-
-VOLUME /reposado/code
-EXPOSE 8080
-
-RUN rm -f /etc/nginx/sites-enabled/default
-RUN rm -f /etc/service/nginx/down
-RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+RUN chown -R www-data:www-data /reposado \
+  && chmod -R ug+rws /reposado
