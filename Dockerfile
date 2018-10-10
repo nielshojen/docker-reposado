@@ -1,5 +1,7 @@
 FROM nginx:1.7
 
+ENV PATH /reposado/code:$PATH
+
 EXPOSE 8088
 
 RUN apt-get update \
@@ -11,5 +13,11 @@ RUN apt-get update \
   && rm -f master /etc/nginx/sites-enabled/default /etc/service/nginx/down \
   && rm -rf wdas-reposado-* /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
+COPY nginx.conf /etc/nginx/
+COPY reposado.conf /etc/nginx/sites-enabled/
+
 RUN chown -R www-data:www-data /reposado \
   && chmod -R ug+rws /reposado
+
+VOLUME /reposado/html
+VOLUME /reposado/metadata
