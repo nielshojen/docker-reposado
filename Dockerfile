@@ -23,3 +23,6 @@ RUN chown -R www-data:www-data /reposado \
 VOLUME /reposado/html
 VOLUME /reposado/metadata
 VOLUME /reposado/scripts
+
+ADD run.sh /run.sh
+CMD /bin/bash /run.sh
