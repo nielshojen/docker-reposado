@@ -22,3 +22,5 @@ fi
 for SCRIPT in $(/usr/bin/find /reposado/scripts -type f); do
 	/bin/bash $SCRIPT
 done
+
+sleep infinity
