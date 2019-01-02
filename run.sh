@@ -1,5 +1,7 @@
 #!/bin/bash
 
+/usr/sbin/nginx
+
 if [[ $LOCAL_URL ]]; then
 
 /bin/cat <<EOF > /reposado/code/preferences.plist
