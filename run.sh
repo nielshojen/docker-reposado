@@ -43,7 +43,7 @@ if [[ ${MIN_OS_CATALOGS} ]]; then
   CATALOGS+=$'\n  </array>'
 fi
 
-/bin/cat <<EOF > ~/Downloads/preferences.plist
+/bin/cat <<EOF > /reposado/code//preferences.plist
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
