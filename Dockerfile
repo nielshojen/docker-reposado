@@ -17,12 +17,13 @@ COPY nginx.conf /etc/nginx/
 COPY preferences.plist /reposado/code/
 COPY reposado.conf /etc/nginx/sites-enabled/
 
-RUN chown -R www-data:www-data /reposado \
-  && chmod -R ug+rws /reposado
+RUN chown -R www-data:www-data /reposado
+RUN chmod -R ug+rws /reposado
 
 VOLUME /reposado/html
 VOLUME /reposado/metadata
 VOLUME /reposado/scripts
 
 ADD run.sh /run.sh
-CMD /bin/bash /run.sh
+RUN chmod +x /run.sh
+CMD /run.sh
