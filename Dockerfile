@@ -8,8 +8,7 @@ RUN apt-get update
 RUN apt-get install -y curl python
 RUN apt-get clean
 RUN mkdir -p /reposado/code /reposado/html /reposado/metadata /reposado/scripts
-RUN curl -ksSL https://github.com/wdas/reposado/tarball/master | tar zx
-RUN cp -rf wdas-reposado-*/code/* /reposado/code/
+RUN curl -ksSL https://github.com/wdas/reposado/tarball/master | tar zx && cp -rf wdas-reposado-*/code/* /reposado/code/
 RUN rm -f master /etc/nginx/sites-enabled/default /etc/service/nginx/down
 RUN rm -rf wdas-reposado-* /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
