@@ -9,12 +9,12 @@ RUN apt-get clean
 VOLUME /reposado
 RUN mkdir -p /reposado/html /reposado/metadata /reposado/scripts
 
-RUN curl -ksSL https://github.com/wdas/reposado/tarball/master | tar zx && cp -rf wdas-reposado-*/code/* /usr/bin/
+RUN curl -ksSL https://github.com/wdas/reposado/tarball/master | tar zx && cp -rf wdas-reposado-*/code/* /usr/local/bin/
 RUN rm -f master /etc/nginx/sites-enabled/default /etc/service/nginx/down
 RUN rm -rf wdas-reposado-* /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 COPY nginx.conf /etc/nginx/
-COPY preferences.plist /usr/bin/
+COPY preferences.plist /usr/local/bin/
 COPY reposado.conf /etc/nginx/sites-enabled/
 
 RUN chown -R www-data:www-data /reposado
